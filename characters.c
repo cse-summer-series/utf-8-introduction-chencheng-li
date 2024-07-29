@@ -55,7 +55,19 @@ unsigned int bytes_for(char* unicode, unsigned int n) {
   unsigned int len = strlen(unicode); // count of bytes in this string
   unsigned int bytes_seen = 0;
   unsigned int unicode_characters_seen = 0;
-  while(bytes_seen < len && bytes_seen < n) {
+  while(bytes_seen < len && unicode_characters_seen < n) {
+    //Example for 成龙, 2:
+    /* 
+    loop 1:
+    bytes_this_char = 3
+    bytes_seen = 3
+    uni... = 1
+    loop 2:
+    bytes_this_char = 3
+    bytes_seen = 6
+    uni... = 2
+    return 6
+    */
     unsigned int bytes_this_char = num_bytes(unicode[bytes_seen]);
     bytes_seen += bytes_this_char;
     unicode_characters_seen += 1;
@@ -84,7 +96,7 @@ int main(int argc, char** argv) {
   }
   printf("\n");
 
-  printf("%d\n", bytes_for("成龙", 1));
+  printf("%d\n", bytes_for("成龙", 2));
 
   return 0;
 }
