@@ -55,12 +55,15 @@ unsigned int bytes_for(char* unicode, unsigned int n) {
   unsigned int len = strlen(unicode); // count of bytes in this string
   unsigned int bytes_seen = 0;
   unsigned int unicode_characters_seen = 0;
-  while(bytes_seen < n) {
+  while(bytes_seen < len && bytes_seen < n) {
     unsigned int bytes_this_char = num_bytes(unicode[bytes_seen]);
     bytes_seen += bytes_this_char;
     unicode_characters_seen += 1;
   }
-  return unicode_characters_seen;
+  if(unicode_characters_seen > n) {
+    return -1;
+  }
+  return bytes_seen;
 }
 
 int main(int argc, char** argv) {
@@ -80,6 +83,8 @@ int main(int argc, char** argv) {
     printf("%d(%x) ", letter, letter);
   }
   printf("\n");
+
+  printf("%d\n", bytes_for("成龙", 1));
 
   return 0;
 }
