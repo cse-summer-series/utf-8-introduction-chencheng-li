@@ -52,7 +52,15 @@ unsigned int utf8_strlen(char* unicode) {
  *   bytes_for("成龙", 3) -> -1
  */
 unsigned int bytes_for(char* unicode, unsigned int n) {
-  return 0;
+  unsigned int len = strlen(unicode); // count of bytes in this string
+  unsigned int bytes_seen = 0;
+  unsigned int unicode_characters_seen = 0;
+  while(bytes_seen < n) {
+    unsigned int bytes_this_char = num_bytes(unicode[bytes_seen]);
+    bytes_seen += bytes_this_char;
+    unicode_characters_seen += 1;
+  }
+  return unicode_characters_seen;
 }
 
 int main(int argc, char** argv) {
